@@ -222,7 +222,7 @@
             allowClear: true
         });
 
-        fetch("{{ route('admin.getProvinces') }}")
+        fetch("{{ route('getProvinces') }}")
             .then(res => res.json())
             .then(data => {
                 data.forEach(item => {
@@ -264,7 +264,7 @@
         });
 
         // Fetch data once
-        fetch("{{ route('admin.getDropDownData') }}")
+        fetch("{{ route('getDropDownData') }}")
             .then(response => response.json())
             .then(data => {
                 dropdownData = data;
