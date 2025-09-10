@@ -3,6 +3,28 @@
 @section('content')
     <div class="container mx-auto px-4 py-8">
         <!-- Page Header & Search -->
+        <!-- Flash Messages -->
+        @if(session('success'))
+            <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-8">
             <h1 class="text-3xl font-extrabold text-gray-800 mb-4 md:mb-0">📋 Pending User Registrations</h1>
             <form method="GET" action="{{ route('admin.pending-users.index') }}" class="flex w-full md:w-1/3">
