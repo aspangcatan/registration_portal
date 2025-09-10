@@ -35,15 +35,14 @@ Route::get('/registration', function () {
 })->name('registration.form');
 Route::post('/register', [ApplicationController::class, 'storePendingUser'])->name('storePendingUser');
 
+// Dropdown data
+Route::get('/get_master_lists', [ApplicationController::class, 'getDropdownData'])->name('getDropDownData');
+Route::get('/address/provinces', [ApplicationController::class, 'getProvinces'])->name('getProvinces');
+Route::get('/address/cities/{provCode}', [ApplicationController::class, 'getCities'])->name('getCities');
+Route::get('/address/barangays/{citymunCode}', [ApplicationController::class, 'getBarangays'])->name('getBarangays');
 // Admin routes (protected)
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/pending-users', [AdminController::class, 'index'])->name('pending-users.index');
     Route::patch('/pending-users/{id}/approve', [AdminController::class, 'approve'])->name('pending-users.approve');
     Route::patch('/pending-users/{id}/reject', [AdminController::class, 'reject'])->name('pending-users.reject');
-
-    // Dropdown data
-    Route::get('/get_master_lists', [ApplicationController::class, 'getDropdownData'])->name('getDropDownData');
-    Route::get('/address/provinces', [ApplicationController::class, 'getProvinces'])->name('getProvinces');
-    Route::get('/address/cities/{provCode}', [ApplicationController::class, 'getCities'])->name('getCities');
-    Route::get('/address/barangays/{citymunCode}', [ApplicationController::class, 'getBarangays'])->name('getBarangays');
 });
