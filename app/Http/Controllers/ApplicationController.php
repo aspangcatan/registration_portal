@@ -42,9 +42,9 @@ class ApplicationController extends Controller
             'house_no'    => 'nullable|string|max:50',
             'street'      => 'nullable|string|max:255',
             'subdivision' => 'nullable|string|max:255',
-            'province'    => 'required|integer',
-            'city'        => 'required|integer',
-            'barangay'    => 'required|integer',
+            'province'    => 'required|string|max:255',
+            'city'        => 'required|string|max:255',
+            'barangay'    => 'required|string|max:255',
             'zip_code'    => 'nullable|string|max:10',
 
             // Emergency

@@ -65,6 +65,7 @@
 <!-- Registration Form -->
     <form action="{{ route('storePendingUser') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
     @csrf
+
     <!-- Basic Information -->
         <div class="md:col-span-2 mt-4">
             <h2 class="text-lg font-semibold text-gray-800">Basic Information</h2>
@@ -72,85 +73,89 @@
 
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Firstname</label>
-            <input type="text" name="firstname" required
+            <input type="text" name="firstname" value="{{ old('firstname') }}" required
                    class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700">Middlename</label>
-            <input type="text" name="middlename" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="middlename" value="{{ old('middlename') }}"
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Lastname</label>
-            <input type="text" name="lastname" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="lastname" value="{{ old('lastname') }}" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700">Suffix</label>
-            <input type="text" name="suffix" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="suffix" value="{{ old('suffix') }}"
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Email</label>
-            <input type="email" name="email" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="email" name="email" value="{{ old('email') }}" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Birthdate</label>
-            <input type="date" name="birthdate" required
+            <input type="date" name="birthdate" value="{{ old('birthdate') }}" required
                    class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Blood Type</label>
             <select name="blood_type" id="blood_type" required class="mt-1 w-full rounded-lg border border-gray-300">
                 <option value="">Select Blood Type</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
+                @foreach(['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'] as $type)
+                    <option value="{{ $type }}" {{ old('blood_type') == $type ? 'selected' : '' }}>{{ $type }}</option>
+                @endforeach
             </select>
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Mobile No.</label>
-            <input type="text" name="mobile_no" required
+            <input type="text" name="mobile_no" value="{{ old('mobile_no') }}" required
                    class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
 
         <!-- Government IDs -->
         <div>
             <label class="block text-sm font-medium text-gray-700 required">TIN</label>
-            <input type="text" name="tin" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="tin" value="{{ old('tin') }}" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">GSIS</label>
-            <input type="text" name="gsis" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="gsis" value="{{ old('gsis') }}" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">PHILHEALTH</label>
-            <input type="text" name="philhealth" required
+            <input type="text" name="philhealth" value="{{ old('philhealth') }}" required
                    class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">PAGIBIG</label>
-            <input type="text" name="pagibig" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="pagibig" value="{{ old('pagibig') }}" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
 
         <!-- Complete Address -->
         <div class="md:col-span-2 mt-4">
             <h2 class="text-lg font-semibold text-gray-800">Complete Address</h2>
         </div>
-
         <div>
             <label class="block text-sm font-medium text-gray-700">House No.</label>
-            <input type="text" name="house_no" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="house_no" value="{{ old('house_no') }}"
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700">Street</label>
-            <input type="text" name="street" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="street" value="{{ old('street') }}"
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700">Subdivision / Village</label>
-            <input type="text" name="subdivision" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="subdivision" value="{{ old('subdivision') }}"
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Province</label>
@@ -172,26 +177,27 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700">Zip Code</label>
-            <input type="text" name="zip_code" class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="zip_code" value="{{ old('zip_code') }}"
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
+
         <!-- Emergency Contact -->
         <div class="md:col-span-2 mt-4">
             <h2 class="text-lg font-semibold text-gray-800">In Case of Emergency</h2>
         </div>
-
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Contact Name</label>
-            <input type="text" name="emergency_contact_name" required
+            <input type="text" name="emergency_contact_name" value="{{ old('emergency_contact_name') }}" required
                    class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
-            <label class="block text-sm font-medium text-gray-700 required">Contact No.</label>
-            <input type="text" name="emergency_contact_no" required
+            <label class="block text-sm font-medium text-gray-700 required">Contact No.</label
+            <input type="text" name="emergency_contact_no" value="{{ old('emergency_contact_no') }}" required
                    class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div class="md:col-span-2">
             <label class="block text-sm font-medium text-gray-700 required">Contact Address</label>
-            <input type="text" name="emergency_contact_address" required
+            <input type="text" name="emergency_contact_address" value="{{ old('emergency_contact_address') }}" required
                    class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
 
@@ -219,7 +225,8 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Username</label>
-            <input type="text" name="username" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="username" value="{{ old('username') }}" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Password</label>
@@ -255,15 +262,18 @@
             allowClear: true
         });
 
+        // Fetch provinces
         fetch("{{ route('getProvinces') }}")
             .then(res => res.json())
             .then(data => {
                 data.forEach(item => {
-                    $('#province').append(`<option value="${item.provCode}">${item.provDesc}</option>`);
+                    let selected = "{{ old('province') }}" == item.provCode ? "selected" : "";
+                    $('#province').append(`<option value="${item.provCode}" ${selected}>${item.provDesc}</option>`);
                 });
+                $('#province').trigger('change');
             });
 
-        // Province → Cities
+        // Province ? Cities
         $('#province').on('change', function () {
             let provCode = $(this).val();
             $('#city').empty().append('<option value="">Select City</option>');
@@ -274,13 +284,15 @@
                     .then(res => res.json())
                     .then(data => {
                         data.forEach(item => {
-                            $('#city').append(`<option value="${item.citymunCode}">${item.citymunDesc}</option>`);
+                            let selected = "{{ old('city') }}" == item.citymunCode ? "selected" : "";
+                            $('#city').append(`<option value="${item.citymunCode}" ${selected}>${item.citymunDesc}</option>`);
                         });
+                        $('#city').trigger('change');
                     });
             }
         });
 
-        // City → Barangays
+        // City ? Barangays
         $('#city').on('change', function () {
             let citymunCode = $(this).val();
             $('#barangay').empty().append('<option value="">Select Barangay</option>');
@@ -290,13 +302,14 @@
                     .then(res => res.json())
                     .then(data => {
                         data.forEach(item => {
-                            $('#barangay').append(`<option value="${item.brgyCode}">${item.brgyDesc}</option>`);
+                            let selected = "{{ old('barangay') }}" == item.brgyCode ? "selected" : "";
+                            $('#barangay').append(`<option value="${item.brgyCode}" ${selected}>${item.brgyDesc}</option>`);
                         });
                     });
             }
         });
 
-        // Fetch data once
+        // Fetch dropdown data for designation, division, section
         fetch("{{ route('getDropDownData') }}")
             .then(response => response.json())
             .then(data => {
@@ -304,20 +317,20 @@
 
                 // Populate Designation
                 $.each(data.designations, function (i, item) {
-                    $('#designation').append(`<option value="${item.id}">${item.description}</option>`);
+                    let selected = "{{ old('designation') }}" == item.id ? "selected" : "";
+                    $('#designation').append(`<option value="${item.id}" ${selected}>${item.description}</option>`);
                 });
 
                 // Populate Division
                 $.each(data.divisions, function (i, item) {
-                    $('#division').append(`<option value="${item.id}">${item.description}</option>`);
+                    let selected = "{{ old('division') }}" == item.id ? "selected" : "";
+                    $('#division').append(`<option value="${item.id}" ${selected}>${item.description}</option>`);
                 });
 
-                // Refresh Select2
-                $('#designation').trigger('change');
-                $('#division').trigger('change');
+                $('#designation, #division').trigger('change');
             });
 
-        // When Division changes -> filter Sections
+        // When Division changes ? filter Sections
         $('#division').on('change', function () {
             const divisionId = $(this).val();
             $('#section').empty().append('<option value="">Select Section</option>');
@@ -325,15 +338,14 @@
             if (divisionId) {
                 const filteredSections = dropdownData.sections.filter(s => s.division == divisionId);
                 $.each(filteredSections, function (i, item) {
-                    $('#section').append(`<option value="${item.id}">${item.description}</option>`);
+                    let selected = "{{ old('section') }}" == item.id ? "selected" : "";
+                    $('#section').append(`<option value="${item.id}" ${selected}>${item.description}</option>`);
                 });
             }
 
-            // Refresh Select2
             $('#section').trigger('change');
         });
     });
 </script>
-
 </body>
 </html>
