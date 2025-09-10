@@ -237,7 +237,7 @@
             $('#barangay').empty().append('<option value="">Select Barangay</option>');
 
             if (provCode) {
-                fetch(`/address/cities/${provCode}`)
+                fetch("{{ url('/address/cities') }}/" + provCode)
                     .then(res => res.json())
                     .then(data => {
                         data.forEach(item => {
@@ -253,7 +253,7 @@
             $('#barangay').empty().append('<option value="">Select Barangay</option>');
 
             if (citymunCode) {
-                fetch(`/address/barangays/${citymunCode}`)
+                fetch("{{ url('/address/barangays') }}/" + citymunCode)
                     .then(res => res.json())
                     .then(data => {
                         data.forEach(item => {
