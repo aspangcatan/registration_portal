@@ -38,17 +38,31 @@ class AdminController extends Controller
     {
         $pendingUser = PendingUser::findOrFail($id);
 
-        $this->approvalService->approve($pendingUser);
-
-        return redirect()->back()->with('success', 'User approved successfully.');
+        try {
+            $this->approvalService->approve($pendingUser);
+            return redirect()->back()->with('success', 'User approved successfully.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Check for duplicate entry error (SQLSTATE 23000)
+            if ($e->getCode() === '23000') {
+                return redirect()->back()->with('error', 'Cannot approve user: Username or email already exists.');
+            }
+            return redirect()->back()->with('error', 'Failed to approve user. Please try again.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to approve user. Please try again.');
+        }
     }
+
 
     public function reject($id)
     {
         $user = PendingUser::findOrFail($id);
-        $user->update(['status' => 'rejected']);
-
-        return redirect()->back()->with('success', 'User rejected successfully.');
+        try {
+            $user->update(['status' => 'rejected']);
+            return redirect()->back()->with('success', 'User rejected successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to reject user. Please try again.');
+        }
     }
+
 
 }
