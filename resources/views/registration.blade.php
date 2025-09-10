@@ -191,7 +191,7 @@
                    class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
-            <label class="block text-sm font-medium text-gray-700 required">Contact No.</label
+            <label class="block text-sm font-medium text-gray-700 required">Contact No.</label>
             <input type="text" name="emergency_contact_no" value="{{ old('emergency_contact_no') }}" required
                    class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
