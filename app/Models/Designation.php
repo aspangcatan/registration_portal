@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Designation extends Model
+{
+    use HasFactory;
+    protected $connection = 'users';
+    protected $table = 'designation'; // or your actual table
+    protected $primaryKey = 'id';
+}
