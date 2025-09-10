@@ -20,6 +20,7 @@ class ApplicationController extends Controller
 
     public function storePendingUser(Request $request)
     {
+        // Validate request and get only validated fields
         $validated = $request->validate([
             // Basic Information
             'firstname'   => 'required|string|max:255',
@@ -41,9 +42,9 @@ class ApplicationController extends Controller
             'house_no'    => 'nullable|string|max:50',
             'street'      => 'nullable|string|max:255',
             'subdivision' => 'nullable|string|max:255',
-            'province'    => 'required|string|max:255',
-            'city'        => 'required|string|max:255',
-            'barangay'    => 'required|string|max:255',
+            'province'    => 'required|integer',
+            'city'        => 'required|integer',
+            'barangay'    => 'required|integer',
             'zip_code'    => 'nullable|string|max:10',
 
             // Emergency
@@ -55,13 +56,28 @@ class ApplicationController extends Controller
             'designation' => 'required|integer',
             'division'    => 'required|integer',
             'section'     => 'required|integer',
-            'username'    => 'required|string|max:255|unique:pending_users,username',
+            'username'    => 'required|string|max:255',
             'password'    => 'required|string|min:6',
         ]);
 
-        $this->pendingUserService->create($request->all());
+        // Check if username already exists in 'users' table
+        $usernameExistsInUsers = \App\Models\User::where('username', $validated['username'])->exists();
+
+        // Check if username already exists in 'pending_users' table
+        $usernameExistsInPending = \App\Models\PendingUser::where('username', $validated['username'])->exists();
+
+        if ($usernameExistsInUsers || $usernameExistsInPending) {
+            return redirect()->back()->withInput()->withErrors([
+                'username' => 'The username is already taken. Please choose another one.'
+            ]);
+        }
+
+        // Create pending user
+        $this->pendingUserService->create($validated);
+
         return redirect()->back()->with('success', 'Your registration is submitted and waiting for approval.');
     }
+
 
     public function getDropdownData(Request $request)
     {

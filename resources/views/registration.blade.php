@@ -17,11 +17,13 @@
             border: 1px solid #d1d5db; /* gray-300 */
             padding: 0.5rem;
         }
+
         .select2-container--default .select2-selection--single .select2-selection__arrow {
             top: 50%;
             transform: translateY(-50%);
             right: 0.75rem;
         }
+
         .required:after {
             content: " *";
             color: red;
@@ -37,10 +39,32 @@
         <p class="text-gray-500 text-sm">Fill in the details below to register</p>
     </div>
 
-    <!-- Registration Form -->
+    <!-- Flash Messages -->
+    @if(session('success'))
+        <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            <ul class="list-disc pl-5">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+@endif
+
+<!-- Registration Form -->
     <form action="{{ route('storePendingUser') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
     @csrf
-
     <!-- Basic Information -->
         <div class="md:col-span-2 mt-4">
             <h2 class="text-lg font-semibold text-gray-800">Basic Information</h2>
@@ -48,7 +72,8 @@
 
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Firstname</label>
-            <input type="text" name="firstname" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="firstname" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700">Middlename</label>
@@ -68,7 +93,8 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Birthdate</label>
-            <input type="date" name="birthdate" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="date" name="birthdate" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Blood Type</label>
@@ -86,7 +112,8 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Mobile No.</label>
-            <input type="text" name="mobile_no" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="mobile_no" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
 
         <!-- Government IDs -->
@@ -100,7 +127,8 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">PHILHEALTH</label>
-            <input type="text" name="philhealth" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="philhealth" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">PAGIBIG</label>
@@ -153,15 +181,18 @@
 
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Contact Name</label>
-            <input type="text" name="emergency_contact_name" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="emergency_contact_name" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Contact No.</label>
-            <input type="text" name="emergency_contact_no" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="emergency_contact_no" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div class="md:col-span-2">
             <label class="block text-sm font-medium text-gray-700 required">Contact Address</label>
-            <input type="text" name="emergency_contact_address" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="text" name="emergency_contact_address" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
 
         <!-- Other Information -->
@@ -192,10 +223,12 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Password</label>
-            <input type="password" name="password" required class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
+            <input type="password" name="password" required
+                   class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
         <div class="md:col-span-2 mt-6">
-            <button type="submit" class="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold shadow-lg hover:bg-indigo-700 transition duration-300 ease-in-out">
+            <button type="submit"
+                    class="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold shadow-lg hover:bg-indigo-700 transition duration-300 ease-in-out">
                 Register
             </button>
         </div>
