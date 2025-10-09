@@ -53,6 +53,7 @@ class PendingUser extends Model
         'username',
         'password',
         'status',
+        'type',
     ];
 
 
