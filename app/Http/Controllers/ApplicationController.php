@@ -58,6 +58,7 @@ class ApplicationController extends Controller
             'section'     => 'required|integer',
             'username'    => 'required|string|max:255',
             'password'    => 'required|string|min:6',
+            'type'    => 'required|string',
         ]);
 
         // Check if username already exists in 'users' table
@@ -72,9 +73,7 @@ class ApplicationController extends Controller
             ]);
         }
 
-        // Create pending user
         $this->pendingUserService->create($validated);
-
         return redirect()->back()->with('success', 'Your registration is submitted and waiting for approval.');
     }
 

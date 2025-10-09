@@ -42,7 +42,6 @@ class LoginController extends Controller
             }
         }
 
-
         return back()
             ->withErrors(['login' => 'Invalid username or password.'])
             ->withInput();

@@ -46,6 +46,7 @@ class UserApprovalService
                 'emergency_contact' => $pendingUser->emergency_contact_no,
                 'emergency_address' => $pendingUser->emergency_contact_address,
                 'employee_no' => $pendingUser->employee_no,
+                'employee_type' => $pendingUser->type,
             ]);
 
             // Create Address (linked to user)

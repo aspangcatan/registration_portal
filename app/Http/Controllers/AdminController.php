@@ -29,10 +29,8 @@ class AdminController extends Controller
         }
 
         $pendingUsers = $query->paginate(10);
-
         return view('home', compact('pendingUsers'));
     }
-
 
     public function approve($id)
     {
@@ -52,7 +50,6 @@ class AdminController extends Controller
         }
     }
 
-
     public function reject($id)
     {
         $user = PendingUser::findOrFail($id);
@@ -63,6 +60,4 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Failed to reject user. Please try again.');
         }
     }
-
-
 }

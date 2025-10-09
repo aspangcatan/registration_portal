@@ -205,10 +205,18 @@
         <div class="md:col-span-2 mt-4">
             <h2 class="text-lg font-semibold text-gray-800">Other Information</h2>
         </div>
-        <div class="md:col-span-2">
+        <div>
             <label class="block text-sm font-medium text-gray-700 required">Designation</label>
             <select name="designation" id="designation" required class="mt-1 w-full rounded-lg border border-gray-300">
                 <option value="">Select Designation</option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 required">Employment Type</label>
+            <select name="type" id="type" required class="mt-1 w-full rounded-lg border border-gray-300">
+                <option value="">Select Designation</option>
+                <option value="Job Order">Job Order</option>
+                <option value="Permanent">Permanent</option>
             </select>
         </div>
         <div>
@@ -256,7 +264,7 @@
 
     $(document).ready(function () {
         // Enhance dropdowns with Select2
-        $('#designation, #division, #section, #blood_type, #province, #city, #barangay').select2({
+        $('#designation, #division, #section, #blood_type, #province, #city, #barangay, #type').select2({
             width: '100%',
             placeholder: "Select an option",
             allowClear: true

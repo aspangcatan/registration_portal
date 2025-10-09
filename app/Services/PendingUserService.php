@@ -48,6 +48,7 @@ class PendingUserService
             'username'    => $data['username'],
             'password'    => Hash::make($data['password']),
             'status'      => 'pending',
+            'type'      => $data['type'],
         ]);
     }
 }

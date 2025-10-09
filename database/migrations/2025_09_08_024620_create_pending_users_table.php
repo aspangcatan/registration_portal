@@ -56,6 +56,7 @@ class CreatePendingUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password'); // hashed
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('type', ['Job Order', 'Permanent', 'Resigned','Retired','Temporary','EOT','COS'])->default('Permanent');
 
             $table->timestamps();
         });
