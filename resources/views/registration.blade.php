@@ -213,7 +213,7 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Employment Type</label>
-            <select name="type" id="type" required class="mt-1 w-full rounded-lg border border-gray-300">
+            <select name="type" id="type" required class="mt-1 w-full rounded-lg border border-gray-300" value="{{ old('type') }}">
                 <option value="">Select Designation</option>
                 <option value="Job Order">Job Order</option>
                 <option value="Permanent">Permanent</option>
