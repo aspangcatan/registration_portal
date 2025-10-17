@@ -46,7 +46,7 @@ class PendingUserService
             'section'     => $data['section'],
             'employee_no' => $data['employee_no'] ?? null, // keep optional if exists
             'username'    => $data['username'],
-            'password'    => Hash::make($data['password']),
+            'password'    => bcrypt($data['password']),
             'status'      => 'pending',
             'type'      => $data['type'],
         ]);
