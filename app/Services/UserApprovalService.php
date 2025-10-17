@@ -28,7 +28,7 @@ class UserApprovalService
                 'designation' => $pendingUser->designation,
                 'division' => $pendingUser->division,
                 'section' => $pendingUser->section,
-                'password' => bcrypt($pendingUser->password),
+                'password' => $pendingUser->password,
             ]);
 
             // Create Employee
