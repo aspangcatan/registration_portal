@@ -59,6 +59,7 @@ class ApplicationController extends Controller
             'username'    => 'required|string|max:255',
             'password'    => 'required|string|min:6',
             'type'    => 'required|string',
+            'privacy_consent' => 'required|accepted',
         ]);
 
         // Check if username already exists in 'users' table

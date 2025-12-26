@@ -213,7 +213,8 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 required">Employment Type</label>
-            <select name="type" id="type" required class="mt-1 w-full rounded-lg border border-gray-300" value="{{ old('type') }}">
+            <select name="type" id="type" required class="mt-1 w-full rounded-lg border border-gray-300"
+                    value="{{ old('type') }}">
                 <option value="">Select Designation</option>
                 <option>Job Order</option>
                 <option>Permanent</option>
@@ -244,9 +245,29 @@
             <input type="password" name="password" required
                    class="mt-1 w-full px-4 py-2 rounded-lg border border-gray-300">
         </div>
+
+        <!-- Data Privacy Consent -->
+        <div class="md:col-span-2 mt-6">
+            <label class="flex items-start space-x-2 text-sm text-gray-700">
+                <input type="checkbox" name="privacy_consent" id="privacy_consent" required
+                       class="mt-1 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                <span>
+                    I have read and understood the
+                    <button type="button" id="openPrivacy"
+                            class="text-indigo-600 underline font-medium">
+                        Data Privacy Notice
+                    </button>
+                    and consent to the collection, use, storage, and processing of my personal data.
+                </span>
+            </label>
+        </div>
+
         <div class="md:col-span-2 mt-6">
             <button type="submit"
-                    class="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold shadow-lg hover:bg-indigo-700 transition duration-300 ease-in-out">
+                    id="registerBtn"
+                    disabled
+                    class="w-full py-3 rounded-xl bg-indigo-400 cursor-not-allowed
+               text-white font-semibold transition duration-300 ease-in-out">
                 Register
             </button>
         </div>
@@ -259,6 +280,110 @@
     </p>
 </div>
 
+<!-- ================= DATA PRIVACY MODAL ================= -->
+<div id="privacyModal"
+     class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+
+    <div class="bg-white w-full max-w-3xl rounded-xl shadow-lg p-6 overflow-y-auto max-h-[90vh]">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">
+            Data Privacy Notice
+        </h2>
+
+        <div class="text-sm text-gray-700 space-y-4 leading-relaxed">
+
+            <p>
+                The <strong>CSMC Document Tracking System (DTS)</strong> is a digital system used to record,
+                monitor, and manage the movement and status of documents within CSMC.
+                This system is committed to protecting the privacy and security of personal
+                data in compliance with applicable data privacy laws and regulations.
+            </p>
+
+            <p class="font-semibold">1. Personal Data Collected</p>
+            <ul class="list-disc pl-6">
+                <li>Full name</li>
+                <li>Employee ID number</li>
+                <li>Position and department</li>
+                <li>Official email address</li>
+                <li>Birthdate</li>
+                <li>Blood Type</li>
+                <li>Contact Information</li>
+                <li>TIN</li>
+                <li>GSIS</li>
+                <li>PHILHEALTH</li>
+                <li>PAGIBIG</li>
+                <li>Address Information</li>
+                <li>In Case of Emergency Information</li>
+            </ul>
+
+            <p class="font-semibold">2. Purpose of Data Collection and Use</p>
+            <p>Personal data shall only be processed for legitimate organizational and administrative purposes. The
+                following purposes apply:</p>
+            <ul class="list-disc pl-6">
+                <li>
+                    <strong>Primary Purpose:</strong>
+                    To create and manage the employee’s DTS account and support HRIS functions.
+                </li>
+                <li>
+                    <strong>Secondary Purpose:</strong>
+                    To integrate with internal systems including Learning and Development.
+                </li>
+            </ul>
+
+            <p class="font-semibold">3. Data Storage</p>
+            <p>
+                All collected personal data shall be securely stored in the CSMC in-house server with appropriate
+                technical and organizational safeguards in place to prevent unauthorized access, loss, or misuse.
+            </p>
+
+            <p class="font-semibold">4. Data Access</p>
+            <p>Access to personal data is strictly limited to:</p>
+            <ul class="list-disc pl-6">
+                <li>HRMO Focal Person</li>
+                <li>Assigned IT Personnel</li>
+            </ul>
+            <p>
+                These authorized individuals are bound by confidentiality obligations and are permitted access only for
+                official and system-related purposes.
+            </p>
+
+            <p class="font-semibold">5. Data Retention</p>
+            <p>
+                Personal data shall be retained only for as long as necessary to fulfill the purposes stated above or as
+                required by applicable laws, rules, and institutional policies.
+            </p>
+            <p class="font-semibold">6. Data Security Measures</p>
+            <p>
+                CSMC implements reasonable administrative, technical, and physical security measures to protect personal
+                data against unauthorized access, alteration, disclosure, or destruction.
+            </p>
+            <p class="font-semibold">7. Data Subject Rights</p>
+            <p>
+                Employees have the right to:
+            </p>
+            <ul class="list-disc pl-6">
+                <li>Be informed about the processing of their personal data</li>
+                <li>Access and review their personal data</li>
+                <li>Raise concerns regarding data privacy and protection</li>
+            </ul>
+
+            <p class="font-semibold">8. Consent</p>
+            <p>
+                By providing personal data for the CSMC Document Tracking System, you acknowledge that you have read and
+                understood this Data Privacy Notice and consent to the collection, use, storage, and processing of you
+                personal data as described herein.
+            </p>
+        </div>
+
+        <div class="mt-6 flex justify-end">
+            <button type="button" id="closePrivacy"
+                    class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -266,6 +391,29 @@
     let dropdownData = {};
 
     $(document).ready(function () {
+        // Enable/disable Register button based on consent checkbox
+        $('#privacy_consent').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('#registerBtn')
+                    .prop('disabled', false)
+                    .removeClass('bg-indigo-400 cursor-not-allowed')
+                    .addClass('bg-indigo-600 hover:bg-indigo-700');
+            } else {
+                $('#registerBtn')
+                    .prop('disabled', true)
+                    .removeClass('bg-indigo-600 hover:bg-indigo-700')
+                    .addClass('bg-indigo-400 cursor-not-allowed');
+            }
+        });
+
+        // Existing modal logic
+        $('#openPrivacy').on('click', function () {
+            $('#privacyModal').removeClass('hidden').addClass('flex');
+        });
+
+        $('#closePrivacy').on('click', function () {
+            $('#privacyModal').addClass('hidden').removeClass('flex');
+        });
         // Enhance dropdowns with Select2
         $('#designation, #division, #section, #blood_type, #province, #city, #barangay, #type').select2({
             width: '100%',
